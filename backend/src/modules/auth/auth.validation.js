@@ -14,4 +14,17 @@ export const registerSchema = Joi.object({
     .min(8)
     .max(50)
     .required(),
+
+  role: Joi.string()
+    .valid("RECRUITER", "CANDIDATE")
+    .default("CANDIDATE"),
+});
+
+export const loginSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .required(),
+
+  password: Joi.string()
+    .required(),
 });
