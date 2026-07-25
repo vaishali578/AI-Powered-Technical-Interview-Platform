@@ -28,3 +28,8 @@ export const loginSchema = Joi.object({
   password: Joi.string()
     .required(),
 });
+
+export const refreshTokenSchema = Joi.object({
+  refreshToken: Joi.string()
+    .required(),
+});

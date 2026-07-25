@@ -2,7 +2,7 @@ import express from "express";
 
 import validate from "../../middleware/validate.middleware.js";
 import { registerSchema, loginSchema } from "./auth.validation.js";
-import { register, login } from "./auth.controller.js";
+import { register, login, refresh } from "./auth.controller.js";
 
 const router = express.Router();
 
@@ -93,6 +93,39 @@ router.post(
   "/login",
   validate(loginSchema),
   login
+);
+
+
+/**
+ * @swagger
+ * /api/auth/refresh:
+ *   post:
+ *     summary: Refresh access token
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 example: eyJhbGciOiJIUzI1NiIs...
+ *     responses:
+ *       200:
+ *         description: Access token refreshed successfully
+ *       401:
+ *         description: Invalid or expired refresh token
+ */
+
+router.post(
+  "/refresh",
+  validate(refreshTokenSchema),
+  refresh
 );
 
 export default router;

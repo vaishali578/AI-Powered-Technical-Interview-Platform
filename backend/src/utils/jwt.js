@@ -12,3 +12,23 @@ export const generateAccessToken = (user) => {
     }
   );
 };
+
+export const generateRefreshToken = (user, sessionId) => {
+  return jwt.sign(
+    {
+      userId: user._id.toString(),
+      sessionId,
+    },
+    process.env.JWT_REFRESH_SECRET,
+    {
+      expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+    }
+  );
+};
+
+export const verifyRefreshToken = (token) => {
+  return jwt.verify(
+    token,
+    process.env.JWT_REFRESH_SECRET
+  );
+};
