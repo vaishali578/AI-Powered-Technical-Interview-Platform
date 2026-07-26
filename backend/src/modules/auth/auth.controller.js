@@ -4,7 +4,8 @@ import ApiResponse from "../../utils/ApiResponse.js";
 import {
   registerUser,
   loginUser,
-  refreshAccessToken
+  refreshAccessToken, 
+  logoutUser
 } from "./auth.service.js";
 
 const register = asyncHandler(async (req, res) => {
@@ -53,8 +54,24 @@ const refresh = asyncHandler(async (req, res) => {
     );
 });
 
+const logout = asyncHandler(async (req, res) => {
+  const { refreshToken } = req.body;
+
+  await logoutUser(refreshToken);
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        "Logout successful"
+      )
+    );
+});
+
 export {
   register,
   login,
-  refresh
+  refresh,
+  logout
 };

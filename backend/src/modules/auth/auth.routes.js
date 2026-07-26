@@ -1,10 +1,24 @@
 import express from "express";
 
 import validate from "../../middleware/validate.middleware.js";
-import { registerSchema, loginSchema } from "./auth.validation.js";
-import { register, login, refresh } from "./auth.controller.js";
+import { registerSchema, loginSchema, refreshTokenSchema, logoutSchema } from "./auth.validation.js";
+import { register, login, refresh, logout } from "./auth.controller.js";
+import authenticate from "../../middleware/auth.middleware.js";
 
 const router = express.Router();
+
+
+router.get(
+  "/me",
+  authenticate,
+  (req, res) => {
+    return res.status(200).json({
+      success: true,
+      message: "Authenticated user",
+      data: req.user,
+    });
+  }
+);
 
 /**
  * @swagger
@@ -126,6 +140,37 @@ router.post(
   "/refresh",
   validate(refreshTokenSchema),
   refresh
+);
+
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout user
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *       400:
+ *         description: Invalid request
+ */
+
+router.post(
+  "/logout",
+  validate(logoutSchema),
+  logout
 );
 
 export default router;

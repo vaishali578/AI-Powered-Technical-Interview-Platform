@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import crypto from "crypto"
 import User from "./auth.model.js";
 import AppError from "../../utils/AppError.js";
 import {
@@ -7,6 +8,38 @@ import {
   verifyRefreshToken,
 } from "../../utils/jwt.js";
 import { redisClient } from "../../config/redis.js";
+
+const createSession = async (user) => {
+  const sessionId = crypto.randomUUID();
+
+  const refreshToken = generateRefreshToken(
+    user,
+    sessionId
+  );
+
+  const refreshTokenHash = await bcrypt.hash(
+    refreshToken,
+    12
+  );
+
+  const sessionKey = `auth:session:${sessionId}`;
+
+  await redisClient.set(
+    sessionKey,
+    JSON.stringify({
+      userId: user._id.toString(),
+      refreshTokenHash,
+    }),
+    {
+      EX: 7 * 24 * 60 * 60,
+    }
+  );
+
+  return {
+    refreshToken,
+    sessionId,
+  };
+};
 
 const registerUser = async ({ name, email, password, role }) => {
   const existingUser = await User.findOne({ email });
@@ -186,8 +219,27 @@ const refreshAccessToken = async (refreshToken) => {
   };
 };
 
+const logoutUser = async (refreshToken) => {
+  if (!refreshToken) {
+    return;
+  }
+
+  try {
+    const decoded = verifyRefreshToken(refreshToken);
+
+    await redisClient.del(
+      `auth:session:${decoded.sessionId}`
+    );
+  } catch (error) {
+    // Logout should be idempotent.
+    // Even if token is already invalid/expired,
+    // we don't need to expose the internal error.
+  }
+};
+
 export {
   registerUser,
   loginUser,
-  refreshAccessToken
+  refreshAccessToken,
+  logoutUser
 };
