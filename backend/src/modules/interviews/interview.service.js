@@ -1,5 +1,6 @@
 import Interview from "./interview.model.js";
 import AppError from "../../utils/AppError.js";
+import generateInterviewPlan from "../ai/planner/interviewPlanner.service.js"
 
 const createInterview = async (
   recruiterId,
@@ -94,10 +95,47 @@ const deleteInterview = async (
   return interview;
 };
 
+const generatePlanForInterview = async (
+  interviewId,
+  recruiterId
+) => {
+  const interview =
+    await Interview.findOne({
+      _id: interviewId,
+      recruiter: recruiterId,
+    });
+
+  if (!interview) {
+    throw new AppError(
+      "Interview not found",
+      404
+    );
+  }
+
+  const interviewPlan =
+    await generateInterviewPlan({
+      title: interview.title,
+      role: interview.role,
+      difficulty: interview.difficulty,
+      skills: interview.skills,
+      interviewType:
+        interview.interviewType,
+      duration: interview.duration,
+    });
+
+  interview.interviewPlan =
+    interviewPlan;
+
+  await interview.save();
+
+  return interview;
+};
+
 export {
   createInterview,
   getRecruiterInterviews,
   getInterviewById,
   updateInterview,
-  deleteInterview
+  deleteInterview,
+  generatePlanForInterview
 };

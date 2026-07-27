@@ -2,7 +2,12 @@ import asyncHandler from "../../utils/asyncHandler.js";
 import ApiResponse from "../../utils/ApiResponse.js";
 
 import {
-  createInterview, getRecruiterInterviews, getInterviewById,updateInterview, deleteInterview
+  createInterview, 
+  getRecruiterInterviews, 
+  getInterviewById,
+  updateInterview, 
+  deleteInterview,
+  generatePlanForInterview
 } from "./interview.service.js";
 
 const create = asyncHandler(
@@ -103,10 +108,31 @@ const remove = asyncHandler(
   }
 );
 
+const generatePlan = asyncHandler(
+  async (req, res) => {
+    const interview =
+      await generatePlanForInterview(
+        req.params.id,
+        req.user.id
+      );
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          "Interview plan generated successfully",
+          interview
+        )
+      );
+  }
+);
+
 export {
   create,
   getAll,
   getById,
   update,
-  remove
+  remove,
+  generatePlan
 };

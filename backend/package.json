@@ -24,6 +24,7 @@
     "joi": "^18.2.3",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.8.0",
+    "openai": "^6.49.0",
     "redis": "^6.1.0",
     "swagger-jsdoc": "^6.3.0",
     "swagger-ui-express": "^5.0.1"

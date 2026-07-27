@@ -7,7 +7,7 @@ import authorize from "../../middleware/role.middleware.js";
 import validate from "../../middleware/validate.middleware.js";
 
 import {
-  create,getAll, getById, update, remove
+  create,getAll, getById, update, remove, generatePlan
 } from "./interview.controller.js";
 
 import {
@@ -244,6 +244,40 @@ router.delete(
   authenticate,
   authorize("RECRUITER"),
   remove
+);
+
+/**
+ * @swagger
+ * /api/interviews/{id}/generate-plan:
+ *   post:
+ *     summary: Generate AI interview plan
+ *     tags:
+ *       - Interviews
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Interview plan generated successfully
+ *       401:
+ *         description: Authentication required
+ *       403:
+ *         description: Recruiter access required
+ *       404:
+ *         description: Interview not found
+ *       502:
+ *         description: AI service unavailable
+ */
+router.post(
+  "/:id/generate-plan",
+  authenticate,
+  authorize("RECRUITER"),
+  generatePlan
 );
 
 export default router;
