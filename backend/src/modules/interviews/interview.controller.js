@@ -2,7 +2,7 @@ import asyncHandler from "../../utils/asyncHandler.js";
 import ApiResponse from "../../utils/ApiResponse.js";
 
 import {
-  createInterview, getRecruiterInterviews, getInterviewById
+  createInterview, getRecruiterInterviews, getInterviewById,updateInterview, deleteInterview
 } from "./interview.service.js";
 
 const create = asyncHandler(
@@ -64,8 +64,49 @@ const getById = asyncHandler(
   }
 );
 
+const update = asyncHandler(
+  async (req, res) => {
+    const interview =
+      await updateInterview(
+        req.params.id,
+        req.user.id,
+        req.body
+      );
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          "Interview updated successfully",
+          interview
+        )
+      );
+  }
+);
+
+const remove = asyncHandler(
+  async (req, res) => {
+    await deleteInterview(
+      req.params.id,
+      req.user.id
+    );
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          "Interview deleted successfully"
+        )
+      );
+  }
+);
+
 export {
   create,
   getAll,
-  getById
+  getById,
+  update,
+  remove
 };

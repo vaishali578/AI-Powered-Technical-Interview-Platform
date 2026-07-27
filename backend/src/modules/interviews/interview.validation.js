@@ -41,3 +41,47 @@ export const createInterviewSchema =
       .max(180)
       .required(),
   });
+
+  export const updateInterviewSchema = Joi.object({
+  title: Joi.string()
+    .min(3)
+    .max(150),
+
+  role: Joi.string()
+    .min(2)
+    .max(100),
+
+  difficulty: Joi.string()
+    .valid(
+      "EASY",
+      "MEDIUM",
+      "HARD"
+    ),
+
+  skills: Joi.array()
+    .items(
+      Joi.string().min(1)
+    )
+    .min(1),
+
+  interviewType: Joi.string()
+    .valid(
+      "TECHNICAL",
+      "CODING",
+      "FULL_INTERVIEW"
+    ),
+
+  duration: Joi.number()
+    .integer()
+    .min(15)
+    .max(180),
+
+  status: Joi.string()
+    .valid(
+      "DRAFT",
+      "ACTIVE",
+      "COMPLETED",
+      "ARCHIVED"
+    ),
+})
+  .min(1);

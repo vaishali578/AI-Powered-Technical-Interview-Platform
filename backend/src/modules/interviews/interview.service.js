@@ -44,8 +44,60 @@ const getInterviewById = async (
   return interview;
 };
 
+const updateInterview = async (
+  interviewId,
+  recruiterId,
+  updateData
+) => {
+  const interview =
+    await Interview.findOneAndUpdate(
+      {
+        _id: interviewId,
+        recruiter: recruiterId,
+      },
+      {
+        $set: updateData,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+  if (!interview) {
+    throw new AppError(
+      "Interview not found",
+      404
+    );
+  }
+
+  return interview;
+};
+
+const deleteInterview = async (
+  interviewId,
+  recruiterId
+) => {
+  const interview =
+    await Interview.findOneAndDelete({
+      _id: interviewId,
+      recruiter: recruiterId,
+    });
+
+  if (!interview) {
+    throw new AppError(
+      "Interview not found",
+      404
+    );
+  }
+
+  return interview;
+};
+
 export {
   createInterview,
   getRecruiterInterviews,
-  getInterviewById
+  getInterviewById,
+  updateInterview,
+  deleteInterview
 };

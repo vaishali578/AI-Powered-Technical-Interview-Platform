@@ -7,11 +7,11 @@ import authorize from "../../middleware/role.middleware.js";
 import validate from "../../middleware/validate.middleware.js";
 
 import {
-  create,getAll, getById
+  create,getAll, getById, update, remove
 } from "./interview.controller.js";
 
 import {
-  createInterviewSchema,
+  createInterviewSchema, updateInterviewSchema
 } from "./interview.validation.js";
 
 const router = express.Router();
@@ -143,6 +143,107 @@ router.get(
   authenticate,
   authorize("RECRUITER"),
   getById
+);
+
+/**
+ * @swagger
+ * /api/interviews/{id}:
+ *   patch:
+ *     summary: Update an interview
+ *     tags:
+ *       - Interviews
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               difficulty:
+ *                 type: string
+ *                 enum:
+ *                   - EASY
+ *                   - MEDIUM
+ *                   - HARD
+ *               skills:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               interviewType:
+ *                 type: string
+ *                 enum:
+ *                   - TECHNICAL
+ *                   - CODING
+ *                   - FULL_INTERVIEW
+ *               duration:
+ *                 type: integer
+ *               status:
+ *                 type: string
+ *                 enum:
+ *                   - DRAFT
+ *                   - ACTIVE
+ *                   - COMPLETED
+ *                   - ARCHIVED
+ *     responses:
+ *       200:
+ *         description: Interview updated successfully
+ *       401:
+ *         description: Authentication required
+ *       403:
+ *         description: Recruiter access required
+ *       404:
+ *         description: Interview not found
+ */
+router.patch(
+  "/:id",
+  authenticate,
+  authorize("RECRUITER"),
+  validate(updateInterviewSchema),
+  update
+);
+
+/**
+ * @swagger
+ * /api/interviews/{id}:
+ *   delete:
+ *     summary: Delete an interview
+ *     tags:
+ *       - Interviews
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Interview deleted successfully
+ *       401:
+ *         description: Authentication required
+ *       403:
+ *         description: Recruiter access required
+ *       404:
+ *         description: Interview not found
+ */
+router.delete(
+  "/:id",
+  authenticate,
+  authorize("RECRUITER"),
+  remove
 );
 
 export default router;
