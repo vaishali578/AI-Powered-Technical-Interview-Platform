@@ -8,6 +8,8 @@ import errorMiddleware from "./middleware/error.middleware.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import userRoutes from "./modules/users/user.routes.js";
 import interviewRoutes from "./modules/interviews/interview.routes.js";
+import invitationRoutes from "./modules/invitation/invitation.routes.js";
+import interviewSessionRoutes from "./modules/interviewSessions/interviewSession.routes.js";
 
 const app = express();
 
@@ -45,6 +47,8 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/interviews",interviewRoutes);
+app.use("/api/invitations",invitationRoutes);
+app.use("/api/interview-sessions",interviewSessionRoutes);
 
 // Global Error Handler
 app.use(errorMiddleware);
