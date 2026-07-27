@@ -1,16 +1,13 @@
 import express from "express";
 
-import authenticate
-  from "../../middleware/auth.middleware.js";
+import authenticate from "../../middleware/auth.middleware.js";
 
-import authorize
-  from "../../middleware/role.middleware.js";
+import authorize from "../../middleware/role.middleware.js";
 
-import validate
-  from "../../middleware/validate.middleware.js";
+import validate from "../../middleware/validate.middleware.js";
 
 import {
-  create,
+  create,getAll, getById
 } from "./interview.controller.js";
 
 import {
@@ -89,6 +86,63 @@ router.post(
   authorize("RECRUITER"),
   validate(createInterviewSchema),
   create
+);
+
+/**
+ * @swagger
+ * /api/interviews:
+ *   get:
+ *     summary: Get recruiter interviews
+ *     tags:
+ *       - Interviews
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Interviews fetched successfully
+ *       401:
+ *         description: Authentication required
+ *       403:
+ *         description: Recruiter access required
+ */
+router.get(
+  "/",
+  authenticate,
+  authorize("RECRUITER"),
+  getAll
+);
+
+/**
+ * @swagger
+ * /api/interviews/{id}:
+ *   get:
+ *     summary: Get interview by ID
+ *     tags:
+ *       - Interviews
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Interview ID
+ *     responses:
+ *       200:
+ *         description: Interview fetched successfully
+ *       401:
+ *         description: Authentication required
+ *       403:
+ *         description: Recruiter access required
+ *       404:
+ *         description: Interview not found
+ */
+router.get(
+  "/:id",
+  authenticate,
+  authorize("RECRUITER"),
+  getById
 );
 
 export default router;

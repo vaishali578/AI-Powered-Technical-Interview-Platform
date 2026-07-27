@@ -173,6 +173,33 @@ router.post(
   logout
 );
 
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Get authenticated user
+ *     tags:
+ *       - Authentication
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Authenticated user details
+ *       401:
+ *         description: Unauthorized
+ */
+router.get(
+  "/me",
+  authenticate,
+  (req, res) => {
+    return res.status(200).json({
+      success: true,
+      message: "Authenticated user",
+      data: req.user,
+    });
+  }
+);
+
 export default router;
 
 // POST /api/auth/register
