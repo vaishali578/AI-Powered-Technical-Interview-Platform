@@ -1,0 +1,51 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "rNTuJ3do3AlItG_VJvcU5",
+      "type": "text",
+      "x": -363.84312438964844,
+      "y": 92.4083023071289,
+      "width": 396,
+      "height": 979.002839402778,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a1",
+      "roundness": null,
+      "seed": 191201810,
+      "version": 1376,
+      "versionNonce": 1467012882,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1784791276567,
+      "link": null,
+      "locked": false,
+      "text": "                         ┌──────────────────────┐\n                         │       Recruiter                    │\n                         │  Create Interview               │\n                         └──────────┬───────────┘\n                                    │\n                                    ▼\n                         ┌──────────────────────┐\n                         │      React App                   │\n                         │    Frontend / UI                │\n                         └──────────┬───────────┘\n                                            │\n                                    HTTPS / WebSocket\n                                               │\n                    ┌───────────────┴───────────────┐\n                    │                                                     │\n                    ▼                                                    ▼\n          ┌─────────────────┐             ┌─────────────────┐\n          │   API Gateway          │             │  Socket Server          │\n          │   Node.js                 │             │   Socket.IO              │\n          └────────┬────────┘             └────────┬────────┘\n                         │                                            │\n                         ▼                                           ▼\n          ┌─────────────────┐             ┌─────────────────┐\n          │ Auth & User             │             │ Real-Time              │\n          │ Service                   │             │ Interview               │\n          └─────────────────┘             │ Communication         │\n                                                       └─────────────────┘\n                         │\n                         ▼\n          ┌─────────────────────────────────────────┐\n          │              Interview Service                                   │\n          │                                                                     │\n          │  Interview Plan │ Questions │ Sessions                     │\n          └──────────────────────┬──────────────────┘\n                                 │\n                                 ▼\n                     ┌──────────────────────┐\n                     │      AI Service                   │\n                     │                                     │\n                     │ LLM │ RAG │ Agents           │\n                     │ Tools │ Evaluation              │\n                     └──────────┬───────────┘\n                                │\n                ┌───────────────┼────────────────┐\n                │               │                │\n                ▼               ▼                ▼\n          ┌──────────┐    ┌──────────┐    ┌─────────────┐\n          │   LLM          │    │    Vector     │    │ Tool Layer         │\n          │ Provider      │    │ Database     │    │                      │\n          └──────────┘    └──────────┘    └─────────────┘\n                                           │                │\n                                           │                ├── Code Execution\n                                           │                ├── Question Search\n                                           │                ├── Candidate Profile\n                                           │                └── Evaluation\n                                           │\n                                           ▼\n                         ┌──────────────┐\n                         │ Knowledge           │\n                         │ Base                 │\n                         │                        │\n                         │ Docs / JD /        │\n                         │ Tech Topics        │\n                         └──────────────┘\n\n              ┌──────────────────────────────────┐\n              │            Data Layer                                 │\n              │                                                          │\n              │ MongoDB │ Redis │ Object Storage              │\n              └──────────────────────────────────┘",
+      "fontSize": 11.188603878888891,
+      "fontFamily": 5,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "                         ┌──────────────────────┐\n                         │       Recruiter                    │\n                         │  Create Interview               │\n                         └──────────┬───────────┘\n                                    │\n                                    ▼\n                         ┌──────────────────────┐\n                         │      React App                   │\n                         │    Frontend / UI                │\n                         └──────────┬───────────┘\n                                            │\n                                    HTTPS / WebSocket\n                                               │\n                    ┌───────────────┴───────────────┐\n                    │                                                     │\n                    ▼                                                    ▼\n          ┌─────────────────┐             ┌─────────────────┐\n          │   API Gateway          │             │  Socket Server          │\n          │   Node.js                 │             │   Socket.IO              │\n          └────────┬────────┘             └────────┬────────┘\n                         │                                            │\n                         ▼                                           ▼\n          ┌─────────────────┐             ┌─────────────────┐\n          │ Auth & User             │             │ Real-Time              │\n          │ Service                   │             │ Interview               │\n          └─────────────────┘             │ Communication         │\n                                                       └─────────────────┘\n                         │\n                         ▼\n          ┌─────────────────────────────────────────┐\n          │              Interview Service                                   │\n          │                                                                     │\n          │  Interview Plan │ Questions │ Sessions                     │\n          └──────────────────────┬──────────────────┘\n                                 │\n                                 ▼\n                     ┌──────────────────────┐\n                     │      AI Service                   │\n                     │                                     │\n                     │ LLM │ RAG │ Agents           │\n                     │ Tools │ Evaluation              │\n                     └──────────┬───────────┘\n                                │\n                ┌───────────────┼────────────────┐\n                │               │                │\n                ▼               ▼                ▼\n          ┌──────────┐    ┌──────────┐    ┌─────────────┐\n          │   LLM          │    │    Vector     │    │ Tool Layer         │\n          │ Provider      │    │ Database     │    │                      │\n          └──────────┘    └──────────┘    └─────────────┘\n                                           │                │\n                                           │                ├── Code Execution\n                                           │                ├── Question Search\n                                           │                ├── Candidate Profile\n                                           │                └── Evaluation\n                                           │\n                                           ▼\n                         ┌──────────────┐\n                         │ Knowledge           │\n                         │ Base                 │\n                         │                        │\n                         │ Docs / JD /        │\n                         │ Tech Topics        │\n                         └──────────────┘\n\n              ┌──────────────────────────────────┐\n              │            Data Layer                                 │\n              │                                                          │\n              │ MongoDB │ Redis │ Object Storage              │\n              └──────────────────────────────────┘",
+      "autoResize": true,
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
